@@ -1,11 +1,14 @@
 {
     "name": "stradivari/dic",
     "description": "dependency injection container",
-    "license": "GPL3",
+    "version": "1.0.0",
+    "license": "GPL-3.0",
     "authors": [
         {
             "name": "Penkov Oleksii",
-            "email": "forziforzi@gmail.com"
+            "email": "forziforzi@gmail.com",
+            "homepage": "https://github.com/forzi/",
+            "role": "Owner, Developer"
         }
     ],
     "minimum-stability": "dev",
