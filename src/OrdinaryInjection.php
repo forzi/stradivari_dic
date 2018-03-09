@@ -10,9 +10,9 @@ class OrdinaryInjection extends AInjection {
     public function __construct($className) {
         $this->className = $className;
     }
-    public function callStatic(array $params = []) {
+    public function callStatic($methodName, array $params = []) {
         $className = $this->className;
-        return call_user_func_array($className, $params);
+        return call_user_func_array("{$className}::{$methodName}", $params);
     }
     public function cast(array $params = []) {
         $reflection = new ReflectionClass($this->className);
