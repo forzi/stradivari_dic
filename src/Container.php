@@ -1,13 +1,15 @@
 <?php
 
-namespace stradivari\dic;
+namespace stradivari\di;
 
-class Container extends ABase {
+abstract class Container extends ABase {
     private static $containers = [];
     private $injections = [];
     private $original;
+    private $injectionClass;
 
-    final public function __construct() {
+    final public function __construct($injectionClass = null) {
+        $this->injectionClass = $injectionClass instanceof AInjection ? $injectionClass : null;
         $hash = md5(static::class);
         if (!isset(self::$containers[$hash])) {
             self::$containers[$hash] = $this;
@@ -25,16 +27,19 @@ class Container extends ABase {
         }
         $injection = $this->original->injections[$name];
         $childName = implode('.', $names);
-        if ($injection instanceof self) {
-            return $injection->get($childName);
-        }
         if ($childName) {
-            return null;
+            if (!$injection instanceof self) {
+                return null;
+            }
+            return $injection->get($childName);
         }
         return $injection;
     }
-    final public function set($name, ABase $injection = null) {
-        if ($injection instanceof self) {
+    final public function set($name, $injection = null) {
+        if ($injection !== null && !$injection instanceof ABase) {
+            $injectionClass = $this->injectionClass;
+            $injection = new $injectionClass($injection);
+        } else if ($injection instanceof self) {
             $injection = $injection->cloneRecursive();
         }
         $names = explode('.', $name);
@@ -55,7 +60,7 @@ class Container extends ABase {
         return $this->original;
     }
     final private function cloneRecursive() {
-        $obj = clone $this;
+        $obj = clone $this->original;
         $obj->original = $this;
         foreach ($obj->injections as $name => $injection) {
             if ($injection instanceof self) {
@@ -63,5 +68,10 @@ class Container extends ABase {
             }
         }
         return $obj;
+    }
+    final public function merge(self $container) {
+        foreach ($container->original->injections as $name => $field) {
+            $this->set($name, $field);
+        }
     }
 }

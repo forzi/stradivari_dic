@@ -1,8 +1,8 @@
 <?php
 
-namespace stradivari\dic;
+namespace stradivari\di;
 
-class SingletonInjection extends OrdinaryInjection {
+class Injection_Singleton extends Injection_Class {
     protected $object;
 
     public function cast(array $params = []) {

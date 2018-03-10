@@ -1,8 +1,8 @@
 <?php
 
-namespace stradivari\dic;
+namespace stradivari\di;
 
-class ObjectInjection extends SingletonInjection {
+class Injection_Object extends Injection_Singleton {
     public function __construct($object) {
         $this->object = $object;
         $this->className = get_class($object);

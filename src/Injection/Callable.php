@@ -1,8 +1,8 @@
 <?php
 
-namespace stradivari\dic;
+namespace stradivari\di;
 
-class CallableInjection extends ABase {
+class Injection_Callable extends AInjection {
     protected $callable;
 
     public function __construct(callable $callable) {

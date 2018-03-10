@@ -1,8 +1,8 @@
 <?php
 
-namespace stradivari\dic;
+namespace stradivari\di;
 
-class PoolInjection extends OrdinaryInjection {
+class Injection_Pool extends Injection_Class {
     protected $objects = [];
 
     public function cast(array $params = []) {

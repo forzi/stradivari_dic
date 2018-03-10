@@ -1,10 +1,10 @@
 <?php
 
-namespace stradivari\dic;
+namespace stradivari\di;
 
 use ReflectionClass;
 
-class OrdinaryInjection extends AInjection {
+class Injection_Class extends AOopInjection {
     protected $className;
 
     public function __construct($className) {

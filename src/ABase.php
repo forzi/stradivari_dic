@@ -1,5 +1,5 @@
 <?php
 
-namespace stradivari\dic;
+namespace stradivari\di;
 
 abstract class ABase {}
