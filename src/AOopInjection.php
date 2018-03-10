@@ -1,6 +1,6 @@
 <?php
 
-namespace stradivari\di;
+namespace stradivari\dic;
 
 abstract class AOopInjection extends AInjection {
     abstract public function cast(array $params = []);

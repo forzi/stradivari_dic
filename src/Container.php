@@ -1,6 +1,6 @@
 <?php
 
-namespace stradivari\di;
+namespace stradivari\dic;
 
 abstract class Container extends ABase {
     private static $containers = [];

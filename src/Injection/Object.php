@@ -1,6 +1,6 @@
 <?php
 
-namespace stradivari\di;
+namespace stradivari\dic;
 
 class Injection_Object extends Injection_Singleton {
     public function __construct($object) {

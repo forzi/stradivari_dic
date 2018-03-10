@@ -1,6 +1,6 @@
 <?php
 
-namespace stradivari\di;
+namespace stradivari\dic;
 
 class Injection_Singleton extends Injection_Class {
     protected $object;

@@ -1,5 +1,5 @@
 <?php
 
-namespace stradivari\di;
+namespace stradivari\dic;
 
 abstract class AInjection extends ABase {}

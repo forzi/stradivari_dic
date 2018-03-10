@@ -1,6 +1,6 @@
 <?php
 
-namespace stradivari\di;
+namespace stradivari\dic;
 
 use ReflectionClass;
 

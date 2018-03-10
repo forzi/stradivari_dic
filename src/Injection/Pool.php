@@ -1,6 +1,6 @@
 <?php
 
-namespace stradivari\di;
+namespace stradivari\dic;
 
 class Injection_Pool extends Injection_Class {
     protected $objects = [];

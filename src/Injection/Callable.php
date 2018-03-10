@@ -1,6 +1,6 @@
 <?php
 
-namespace stradivari\di;
+namespace stradivari\dic;
 
 class Injection_Callable extends AInjection {
     protected $callable;

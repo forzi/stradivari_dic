@@ -1,3 +1,3 @@
 <?php
 
-return new \stradivari\di\Dic;
+return new \stradivari\dic\Dic;
