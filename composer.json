@@ -15,7 +15,7 @@
     "require": {},
     "autoload": {
         "psr-0": {
-            "stradivari\\di\\": ["stradivari\\dic\\", "stradivari\\dic\\src"]
+            "stradivari\\di": ["stradivari/dic/", "stradivari/dic/src"]
         }
     }
 }
