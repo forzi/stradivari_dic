@@ -38,7 +38,7 @@ abstract class Container extends ABase {
         return $injection;
     }
     final public function set($name, $injection = null) {
-        if ($injection !== null && !$injection instanceof ABase) {
+        if (!$injection instanceof ABase) {
             $injectionClass = $this->injectionClass;
             $injection = new $injectionClass($injection);
         } else if ($injection instanceof self) {
@@ -47,11 +47,7 @@ abstract class Container extends ABase {
         $names = explode('.', $name);
         $name = array_shift($names);
         if (!$names) {
-            if ($injection === null) {
-                unset($this->original->injections[$name]);
-            } else {
-                $this->original->injections[$name] = $injection;
-            }
+            $this->original->injections[$name] = $injection;
             return $this;
         }
         $childName = implode('.', $names);
@@ -59,6 +55,20 @@ abstract class Container extends ABase {
             $this->original->injections[$name] = $this->cloneRecursive();
         }
         $this->original->injections[$name]->set($childName, $injection);
+        return $this;
+    }
+    final public function delete($name) {
+        $names = explode('.', $name);
+        $name = array_shift($names);
+        if (!$names) {
+            unset($this->original->injections[$name]);
+            return $this;
+        }
+        $childName = implode('.', $names);
+        if (!isset($this->original->injections[$name]) || !($this->original->injections[$name] instanceof self)) {
+            return $this;
+        }
+        $this->original->delete($childName);
         return $this;
     }
     final private function cloneRecursive() {
