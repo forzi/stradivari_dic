@@ -9,7 +9,7 @@ abstract class Container extends ABase {
     private $injectionClass;
 
     final public function __construct($injectionClass = null) {
-        $this->injectionClass = $injectionClass instanceof AInjection ? $injectionClass : null;
+        $this->injectionClass = in_array(AInjection::class, class_parents($injectionClass)) ? $injectionClass : null;
         $hash = md5(static::class);
         if (!isset(self::$containers[$hash])) {
             self::$containers[$hash] = $this;
