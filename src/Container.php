@@ -50,14 +50,14 @@ abstract class Container extends ABase {
             } else {
                 $this->original->injections[$name] = $injection;
             }
-            return $this->original;
+            return $this;
         }
         $childName = implode('.', $names);
         if (!isset($this->original->injections[$name]) || !($this->original->injections[$name] instanceof self)) {
             $this->original->injections[$name] = $this->cloneRecursive();
         }
         $this->original->injections[$name]->set($childName, $injection);
-        return $this->original;
+        return $this;
     }
     final private function cloneRecursive() {
         $obj = clone $this->original;
