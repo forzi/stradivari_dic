@@ -30,7 +30,7 @@ abstract class Container extends ABase {
         $injection = $this->original->injections[$name];
         $childName = implode('.', $names);
         if ($childName) {
-            if (!$injection instanceof self) {
+            if (!method_exists($injection, 'get')) {
                 return null;
             }
             return $injection->get($childName);
