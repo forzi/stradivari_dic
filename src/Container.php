@@ -82,7 +82,7 @@ abstract class Container extends ABase {
     }
     final public function merge(self $container) {
         foreach ($container->original->injections as $name => $injection) {
-            $this->injections[$name] = ($injection instanceof self) ? $injection->cloneRecursive() : $injection;
+            $this->original->injections[$name] = ($injection instanceof self) ? $injection->cloneRecursive() : $injection;
         }
         return $this;
     }
