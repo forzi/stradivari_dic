@@ -16,6 +16,9 @@
     "autoload": {
         "psr-4": {
             "stradivari\\dic\\": ["", "src"]
+        },
+        "psr-0": {
+            "stradivari\\dic\\": ["stradivari/dic", "stradivari/dic/src", "vendor/stradivari/dic", "vendor/stradivari/dic/src"]
         }
     }
 }
