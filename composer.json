@@ -14,8 +14,8 @@
     "minimum-stability": "dev",
     "require": {},
     "autoload": {
-        "psr-4": {
-            "stradivari\\dic\\": ["", "src"]
+        "psr-0": {
+            "stradivari\\di\\": ["stradivari\\dic\\", "stradivari\\dic\\src"]
         }
     }
 }
