@@ -86,4 +86,8 @@ abstract class Container extends ABase {
         }
         return $this;
     }
+    final public function clear() {
+        $this->original->injections = [];
+        return $this;
+    }
 }
