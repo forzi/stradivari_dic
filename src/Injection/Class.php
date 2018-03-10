@@ -10,11 +10,12 @@ class Injection_Class extends AOopInjection {
     public function __construct($className) {
         $this->className = $className;
     }
-    public function callStatic($methodName, array $params = []) {
+    public function staticCallable($methodName) {
         $className = $this->className;
-        return call_user_func_array("{$className}::{$methodName}", $params);
+        return new Injection_Callable("{$className}::{$methodName}");
     }
-    public function cast(array $params = []) {
+    public function cast() {
+        $params = func_get_args();
         $reflection = new ReflectionClass($this->className);
         return $reflection->newInstanceArgs($params);
     }
