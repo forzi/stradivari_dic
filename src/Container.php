@@ -52,7 +52,7 @@ abstract class Container extends ABase {
         }
         $childName = implode('.', $names);
         if (!isset($this->original->injections[$name]) || !($this->original->injections[$name] instanceof self)) {
-            $this->original->injections[$name] = $this->cloneRecursive();
+            $this->original->injections[$name] = $this->instantiate();
         }
         $this->original->injections[$name]->set($childName, $injection);
         return $this;
@@ -71,19 +71,19 @@ abstract class Container extends ABase {
         $this->original->delete($childName);
         return $this;
     }
-    final private function cloneRecursive() {
-        $obj = clone $this->original;
-        $obj->original = $this;
-        foreach ($obj->injections as $name => $injection) {
-            if ($injection instanceof self) {
-                $obj->injections[$name] = $obj->injections[$name]->cloneRecursive();
-            }
-        }
+    final private function instantiate() {
+        $class = \get_class($this);
+        $obj = new $class;
+        $obj->original = $obj;
         return $obj;
     }
+    final private function cloneRecursive() {
+        return $this->instantiate()->merge($this);
+    }
     final public function merge(self $container) {
-        foreach ($container->original->injections as $name => $field) {
-            $this->set($name, $field);
+        foreach ($container->original->injections as $name => $injection) {
+            $this->injections[$name] = ($injection instanceof self) ? $injection->cloneRecursive() : $injection;
         }
+        return $this;
     }
 }
