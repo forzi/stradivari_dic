@@ -4,7 +4,7 @@ namespace stradivari\dic;
 
 use ReflectionClass;
 
-class Injection_Class extends AOopInjection {
+class Injection_Class extends AInjection {
     protected $className;
 
     public function __construct($className) {
@@ -19,18 +19,23 @@ class Injection_Class extends AOopInjection {
         $reflection = new ReflectionClass($this->className);
         return $reflection->newInstanceArgs($params);
     }
-    public function isSubclassOf($name)
-    {
-        if ($this->className == $name) {
+    public function isSubclassOfInjection($name) {
+        return $this->isSubclassOf($name, $this->className);
+    }
+    public function isInjectionSubclassOf($name) {
+        return $this->isSubclassOf($this->className, $name);
+    }
+    protected function isSubclassOf($class1, $class2) {
+        if ($class1 === $class2) {
             return true;
         }
-        if (in_array($name, class_parents($this->className))) {
+        if (class_exists($class1) && in_array($class1, class_parents($class2))) {
             return true;
         }
-        if (in_array($name, class_implements($this->className))) {
+        if (interface_exists($class1) && in_array($class1, class_implements($class2))) {
             return true;
         }
-        if (in_array($name, class_uses($this->className))) {
+        if (trait_exists($class1) && in_array($class1, class_uses($class2))) {
             return true;
         }
         return false;
