@@ -14,6 +14,14 @@ class Injection_Class extends AInjection {
         $className = $this->className;
         return new Injection_Callable("{$className}::{$methodName}");
     }
+    public function getStatic($name) {
+        $className = $this->className;
+        return $className::$name;
+    }
+    public function setStatic($name, $value) {
+        $className = $this->className;
+        $className::$name = $value;
+    }
     public function cast() {
         $params = func_get_args();
         $reflection = new ReflectionClass($this->className);
