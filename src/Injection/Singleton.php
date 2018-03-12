@@ -8,7 +8,7 @@ class Injection_Singleton extends Injection_Class {
     public function cast() {
         $params = func_get_args();
         if (!$this->object) {
-            $this->object = parent::cast($params);
+            $this->object = call_user_func_array("parent::cast", $params);
         }
         return $this->object;
     }
