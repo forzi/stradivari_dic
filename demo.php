@@ -13,6 +13,10 @@ use stradivari\dic\Container;
 
 class Dic extends Container {}
 
+class ExtendedDateTime extends DateTime {
+    public static $extended;
+}
+
 class A extends ArrayObject {}
 $obj = new A;
 
@@ -25,19 +29,19 @@ $dicCallable    = new Dic(Injection_Callable::class);
 
 $dicClass
     ->set('class.ArrayObject', ArrayObject::class)
-    ->set('class.DateTime', DateTime::class);
+    ->set('class.DateTime', ExtendedDateTime::class);
 
 $dicSingleton
     ->set('singleton.ArrayObject', ArrayObject::class)
-    ->set('singleton.DateTime', DateTime::class);
+    ->set('singleton.DateTime', ExtendedDateTime::class);
 
 $dicPool
     ->set('pool.ArrayObject', ArrayObject::class)
-    ->set('pool.DateTime', DateTime::class);
+    ->set('pool.DateTime', ExtendedDateTime::class);
 
 $dicObject
     ->set('object.ArrayObject', new ArrayObject)
-    ->set('object.DateTime', new DateTime);
+    ->set('object.DateTime', new ExtendedDateTime);
 
 $dicCallable
     ->set('sleep', 'sleep')
@@ -57,6 +61,11 @@ $var_dump->call('---------------------');
 
 $var_dump->call((new Dic)->get('text.value'));
 $var_dump->call((new Dic)->get('number.value'));
+
+$var_dump->call((new Dic)->get('object.DateTime')->getConst('ATOM'));
+$var_dump->call((new Dic)->get('object.DateTime')->getStatic('extended'));
+((new Dic)->get('object.DateTime')->setStatic('extended', 'some text'));
+$var_dump->call((new Dic)->get('object.DateTime')->getStatic('extended'));
 
 (new Dic)->get('var_dump')->call('---------------------');
 (new Dic)->get('sleep')->call(2);

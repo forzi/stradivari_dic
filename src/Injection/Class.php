@@ -14,13 +14,17 @@ class Injection_Class extends AInjection {
         $className = $this->className;
         return new Injection_Callable("{$className}::{$methodName}");
     }
+    public function getConst($name) {
+        $reflection = new ReflectionClass($this->className);
+        return $reflection->getConstant($name);
+    }
     public function getStatic($name) {
-        $className = $this->className;
-        return $className::$name;
+        $reflection = new ReflectionClass($this->className);
+        return $reflection->getStaticPropertyValue($name);
     }
     public function setStatic($name, $value) {
-        $className = $this->className;
-        $className::$name = $value;
+        $reflection = new ReflectionClass($this->className);
+        $reflection->setStaticPropertyValue($name, $value);
     }
     public function cast() {
         $params = func_get_args();
